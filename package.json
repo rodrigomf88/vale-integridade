@@ -22,16 +22,7 @@
   "cds": {
     "requires": {
       "auth": "dummy",
-      "SFSF_EXTENSIBILITY_DEV": {
-        "kind": "odata-v2",
-        "model": "srv/external/SFSF_EXTENSIBILITY_DEV",
-        "[production]": {
-          "credentials": {
-            "destination": "SFSF_EXTENSIBILITY_DEV",
-            "path": "/odata/v2/JobApplication"
-          }
-        }
-      }
+      "connectivity": true
     }
   }
 }
