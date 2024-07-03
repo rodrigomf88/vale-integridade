@@ -1,7 +1,7 @@
 /* checksum : 1c2295aaa0cc82a4fd7ef1ec6317ac0a */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
-service SFSF_EXTENSIBILITY_DEV {};
+service SUCCESS_FACTORS_JOB_APPLICATION {};
 
 @cds.external : true
 @cds.persistence.skip : true
@@ -10,7 +10,7 @@ service SFSF_EXTENSIBILITY_DEV {};
 @sap.updatable : 'true'
 @sap.upsertable : 'true'
 @sap.deletable : 'false'
-entity SFSF_EXTENSIBILITY_DEV.JobApplication {
+entity SUCCESS_FACTORS_JOB_APPLICATION.JobApplication {
   @sap.required : 'false'
   @sap.creatable : 'false'
   @sap.updatable : 'true'

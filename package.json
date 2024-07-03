@@ -25,9 +25,9 @@
     "requires": {
       "auth": "dummy",
       "connectivity": true,
-      "SFSF_EXTENSIBILITY_DEV": {
+      "SUCCESS_FACTORS_JOB_APPLICATION": {
         "kind": "odata-v2",
-        "model": "srv/external/SFSF_EXTENSIBILITY_DEV",
+        "model": "srv/external/SUCCESS_FACTORS_JOB_APPLICATION",
         "credentials": {
           "destination": "SFSF_EXTENSIBILITY_DEV",
           "path": "/odata/v2/JobApplication"
