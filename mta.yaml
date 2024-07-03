@@ -27,6 +27,7 @@ modules:
     requires:
       - name: service_integrity_assessment-connectivity
       - name: service_integrity_assessment-destination
+      - name: service_integrity_assessment-auth
 
 resources:
   - name: service_integrity_assessment-connectivity
@@ -39,3 +40,12 @@ resources:
     parameters:
       service: destination
       service-plan: lite
+  - name: service_integrity_assessment-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: service_integrity_assessment-${space}
+        tenant-mode: dedicated

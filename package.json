@@ -9,7 +9,7 @@
     "@sap-cloud-sdk/http-client": "^3.16.0",
     "@sap-cloud-sdk/resilience": "^3.16.0",
     "@sap/cds": "^7",
-    "@sap/xssec": "^4.1.3",
+    "@sap/xssec": "^3.6.1",
     "express": "^4"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
   },
   "cds": {
     "requires": {
-      "auth": "dummy",
+      "auth": "xsuaa",
       "connectivity": true,
       "SUCCESS_FACTORS_JOB_APPLICATION": {
         "kind": "odata-v2",

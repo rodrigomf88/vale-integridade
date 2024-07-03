@@ -1,10 +1,10 @@
 const cds = require('@sap/cds')
 
 module.exports = async (srv) => {
-    const sufa = await cds.connect.to('SUCCESS_FACTORS_JOB_APPLICATION')
+    const successFactorsJobApplication = await cds.connect.to('SUCCESS_FACTORS_JOB_APPLICATION')
 
     srv.on('READ', 'A_JobApplication', async (req)=> {
-        const jobApplication = await sufa.run(req.query)
+        const jobApplication = await successFactorsJobApplication.run(req.query)
 
         return jobApplication
     })
