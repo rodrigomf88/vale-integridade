@@ -1,7 +1,7 @@
 const cds = require('@sap/cds')
 
 module.exports = async (srv) => {
-    const successFactorsJobApplication = await cds.connect.to('SFSF_EXTENSIBILITY_DEV')
+    const successFactorsJobApplication = await cds.connect.to('JobApplicationExt')
 
     srv.on('READ', 'JobApplication', async (req)=> {
         const jobApplication = await successFactorsJobApplication.transaction(req).send({

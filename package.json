@@ -25,9 +25,9 @@
     "requires": {
       "auth": "xsuaa",
       "connectivity": true,
-      "SFSF_EXTENSIBILITY_DEV": {
+      "JobApplicationExt": {
         "kind": "odata-v2",
-        "model": "srv/external/SFSF_EXTENSIBILITY_DEV",
+        "model": "srv/external/JobApplicationExt",
         "credentials": {
           "destination": "SFSF_EXTENSIBILITY_DEV",
           "path": "/odata/v2"
