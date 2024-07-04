@@ -1,11 +1,19 @@
 const cds = require('@sap/cds')
 
 module.exports = async (srv) => {
-    const successFactorsJobApplication = await cds.connect.to('SUCCESS_FACTORS_JOB_APPLICATION')
+    const successFactorsJobApplication = await cds.connect.to('SFSF_EXTENSIBILITY_DEV')
 
-    srv.on('READ', 'A_JobApplication', async (req)=> {
-        const jobApplication = await successFactorsJobApplication.run(req.query)
+    srv.on('READ', 'JobApplication', async (req)=> {
+        const jobApplication = await successFactorsJobApplication.transaction(req).send({
+            query: req.query,
+        });
 
         return jobApplication
+    })
+
+    srv.on('READ', 'JobApplicationStatus', async (req)=> {
+        const jobApplicationStatus = await successFactorsJobApplication.run(req.query)
+
+        return jobApplicationStatus
     })
 }

@@ -1,5 +1,10 @@
-using {SUCCESS_FACTORS_JOB_APPLICATION} from './external/SUCCESS_FACTORS_JOB_APPLICATION';
+using {SFSF_EXTENSIBILITY_DEV} from './external/SFSF_EXTENSIBILITY_DEV';
 
 service MyService @(path: '/proxy'){
- entity A_JobApplication as projection on SUCCESS_FACTORS_JOB_APPLICATION.JobApplication;
+ entity JobApplication as projection on SFSF_EXTENSIBILITY_DEV.JobApplication {
+    *,
+    jobAppStatus: redirected to JobApplicationStatus
+ };
+
+ entity JobApplicationStatus as projection on SFSF_EXTENSIBILITY_DEV.JobApplicationStatus
 }
