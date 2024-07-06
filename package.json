@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.12.12",
     "@sap-cloud-sdk/http-client": "^3.16.0",
     "@sap-cloud-sdk/resilience": "^3.16.0",
     "@sap/cds": "^7",
@@ -22,6 +23,9 @@
     "start": "cds-serve"
   },
   "cds": {
+    "cov2ap" : {
+      "plugin" : true
+      },
     "requires": {
       "auth": "xsuaa",
       "connectivity": true,

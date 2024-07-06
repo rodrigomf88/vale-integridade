@@ -1,0 +1,7 @@
+@server = http://localhost:4007
+@auth = Authorization: Basic alice:
+
+
+### JobApplicationExt.JobApplicationStatusLabel
+GET {{server}}/proxy/JobApplication?$expand=jobRequisition($expand=recruiter),jobAppStatus,statusId&$filter=jobAppStatus/appStatusSetId eq 756 or jobAppStatus/appStatusSetId eq 726 or jobAppStatus/appStatusSetId eq 729 or jobAppStatus/appStatusSetId eq 799 or jobAppStatus/appStatusSetId eq 802
+Content-Type: application/json

@@ -28,6 +28,15 @@ modules:
       - name: service_integrity_assessment-connectivity
       - name: service_integrity_assessment-destination
       - name: service_integrity_assessment-auth
+      - name: service_integrity_assessment-db
+
+  - name: service_integrity_assessment-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: service_integrity_assessment-db
 
 resources:
   - name: service_integrity_assessment-connectivity
@@ -49,3 +58,8 @@ resources:
       config:
         xsappname: service_integrity_assessment-${space}
         tenant-mode: dedicated
+  - name: service_integrity_assessment-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
