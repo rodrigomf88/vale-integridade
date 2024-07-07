@@ -1,7 +1,29 @@
-@server = http://localhost:4007
+@server = http://localhost:4009
 @auth = Authorization: Basic alice:
 
 
-### JobApplicationExt.JobApplicationStatusLabel
+### List all JobApplications
 GET {{server}}/proxy/JobApplication?$expand=jobRequisition($expand=recruiter),jobAppStatus,statusId&$filter=jobAppStatus/appStatusSetId eq 756 or jobAppStatus/appStatusSetId eq 726 or jobAppStatus/appStatusSetId eq 729 or jobAppStatus/appStatusSetId eq 799 or jobAppStatus/appStatusSetId eq 802
 Content-Type: application/json
+
+### Show a unique JobApplication
+GET {{server}}/proxy/JobApplication(560)
+Content-Type: application/json
+
+### Update a unique JobApplication
+PUT {{server}}/proxy/JobApplication(560)
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "custom_tituloPublico1": "Title1",
+  "custom_tituloPublico2": "Title2",
+  "custom_tituloPublico3": "Title3",
+  "custom_parentePublico1": "Parent1",
+  "custom_parentePublico2": "Parent2",
+  "custom_parentePublico3": "Parent3",
+  "custom_localPublico1": "location1",
+  "custom_localPublico2": "location2",
+  "custom_localPublico3": "location3"
+}

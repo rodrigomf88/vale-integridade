@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "CAP Debugger",
-      "command": "cds watch --profile hybrid --port 4007",
+      "command": "cds watch --profile hybrid --port 4009",
       "type": "node-terminal",
       "cwd": "${workspaceFolder}",
       "request": "launch"
