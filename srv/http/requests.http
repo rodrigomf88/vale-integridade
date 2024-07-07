@@ -2,15 +2,15 @@
 @auth = Authorization: Basic alice:
 
 
-### List all JobApplications
+### List all Job Applications with expand and filter
 GET {{server}}/proxy/JobApplication?$expand=jobRequisition($expand=recruiter),jobAppStatus,statusId&$filter=jobAppStatus/appStatusSetId eq 756 or jobAppStatus/appStatusSetId eq 726 or jobAppStatus/appStatusSetId eq 729 or jobAppStatus/appStatusSetId eq 799 or jobAppStatus/appStatusSetId eq 802
 Content-Type: application/json
 
-### Show a unique JobApplication
+### Show a unique Job Application
 GET {{server}}/proxy/JobApplication(560)
 Content-Type: application/json
 
-### Update a unique JobApplication
+### Update a unique Job Application
 PUT {{server}}/proxy/JobApplication(560)
 Content-Type: application/json
 
