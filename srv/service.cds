@@ -1,4 +1,5 @@
 using {JobApplicationExt} from './external/JobApplicationExt';
+using my.jobapplication as my from '../db/schema';
 
 service MyService @(path: '/proxy'){
  entity JobApplication as projection on JobApplicationExt.JobApplication {
@@ -35,4 +36,6 @@ service MyService @(path: '/proxy'){
  entity PicklistOption as projection on JobApplicationExt.PicklistOption;
 
  entity JobRequisitionOperator as projection on JobApplicationExt.JobRequisitionOperator {firstName, lastName};
+
+ entity Drafts as projection on my.Drafts;
 }

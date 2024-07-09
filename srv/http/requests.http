@@ -1,4 +1,4 @@
-@server = http://localhost:4009
+@server = http://localhost:4006
 @auth = Authorization: Basic alice:
 
 
@@ -26,4 +26,35 @@ Content-Type: application/json
   "custom_localPublico1": "location1",
   "custom_localPublico2": "location2",
   "custom_localPublico3": "location3"
+}
+
+
+### List Drafts
+GET  {{server}}/proxy/Drafts
+Content-Type: application/json
+
+### Create a Draft
+POST {{server}}/proxy/Drafts
+Content-Type: application/json
+{{auth}}
+
+{
+  "applicationId": 560,
+  "avaliadorIntegridade": "avaliadorIntegridade-3835045",
+  "resultadoIntegridade": "resultadoIntegridade-3835045",
+  "comentarioIntegridade": "comentarioIntegridade-3835045",
+  "isPublicAgent": false,
+  "wasPublicAgent": false,
+  "parentePublico1": "parentePublico1-3835045",
+  "parentePublico2": "parentePublico2-3835045",
+  "parentePublico3": "parentePublico3-3835045",
+  "tituloPublico1": "tituloPublico1-3835045",
+  "tituloPublico2": "tituloPublico2-3835045",
+  "tituloPublico3": "tituloPublico3-3835045",
+  "grauPublico1": "grauPublico1-3835045",
+  "grauPublico2": "grauPublico2-3835045",
+  "grauPublico3": "grauPublico3-3835045",
+  "localPublico1": "localPublico1-3835045",
+  "localPublico2": "localPublico2-3835045",
+  "localPublico3": "localPublico3-3835045"
 }

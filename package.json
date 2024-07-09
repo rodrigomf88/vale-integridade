@@ -11,7 +11,8 @@
     "@sap-cloud-sdk/resilience": "^3.16.0",
     "@sap/cds": "^7",
     "@sap/xssec": "^3.6.1",
-    "express": "^4"
+    "express": "^4",
+    "@sap/cds-hana": "^2"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
@@ -23,12 +24,13 @@
     "start": "cds-serve"
   },
   "cds": {
-    "cov2ap" : {
-      "plugin" : true
-      },
+    "cov2ap": {
+      "plugin": true
+    },
     "requires": {
       "auth": "xsuaa",
       "connectivity": true,
+      "db": "hana",
       "JobApplicationExt": {
         "kind": "odata-v2",
         "model": "srv/external/JobApplicationExt",
