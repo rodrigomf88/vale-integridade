@@ -8,6 +8,7 @@ module.exports = async (srv) => {
     srv.on('READ', 'JobRequisition', async (req) => await JobApplicationExt.run(req.query))
     srv.on('READ', 'PicklistOption', async (req) => await JobApplicationExt.run(req.query))
     srv.on('READ', 'JobRequisition', async (req) => await JobApplicationExt.run(req.query))
+    srv.on('READ', 'IntegrityOptions', async (req) => await JobApplicationExt.run(req.query))
 
 
     srv.on('UPDATE', 'JobApplication', async (req) => {

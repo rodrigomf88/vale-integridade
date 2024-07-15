@@ -38,4 +38,6 @@ service MyService @(path: '/proxy'){
  entity JobRequisitionOperator as projection on JobApplicationExt.JobRequisitionOperator {firstName, lastName};
 
  entity Drafts as projection on my.Drafts;
+
+ entity IntegrityOptions as projection on JobApplicationExt.PickListValueV2;
 }
