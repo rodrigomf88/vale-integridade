@@ -12,7 +12,9 @@ module.exports = async (srv) => {
 
 
     srv.on('UPDATE', 'JobApplication', async (req) => {
-        const { applicationId, ...data } = req.data;
+        const { applicationId, customIntegridadeComments, customIntegridadeData } = req.data;
+
+        const dateToTimesTamp = new Date(customIntegridadeData).getTime();
 
         const upsertData = {
             "__metadata": {
@@ -20,7 +22,8 @@ module.exports = async (srv) => {
                 "type": "SFOData.JobApplication"
             },
             applicationId,
-            ...data
+            customIntegridadeComments,
+            customIntegridadeData: `/Date(${dateToTimesTamp}+0000)/`
         };
 
         try {
@@ -31,6 +34,13 @@ module.exports = async (srv) => {
                 url: '/odata/v2/upsert',
                 data: upsertData
             });
+
+            const draftExists = await cds.run(SELECT.one.from('my.jobapplication.Drafts').where({ jobApplicationId: applicationId }));
+
+            if (draftExists) {
+                await cds.run(DELETE.from('my.jobapplication.Drafts').where({ jobApplicationId: applicationId }));
+                console.log(`Draft for applicationId ${applicationId} has been deleted.`);
+            }
 
             return response.data;
         } catch (error) {

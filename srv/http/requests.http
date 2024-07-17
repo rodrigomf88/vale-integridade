@@ -1,4 +1,4 @@
-@server = http://localhost:4006
+@server = http://localhost:4004
 @auth = Authorization: Basic alice:
 
 
@@ -7,7 +7,7 @@ GET {{server}}/proxy/JobApplication?$expand=jobRequisition($expand=recruiter),jo
 Content-Type: application/json
 
 ### Show a unique Job Application
-GET {{server}}/proxy/JobApplication(560)
+GET {{server}}/proxy/JobApplication(560)?$select=customIntegridadeComments,customIntegridadeData
 Content-Type: application/json
 
 ### Update a unique Job Application
@@ -15,17 +15,8 @@ PUT {{server}}/proxy/JobApplication(560)
 Content-Type: application/json
 
 {
-  "firstName": "John",
-  "lastName": "Doe",
-  "custom_tituloPublico1": "Title1",
-  "custom_tituloPublico2": "Title2",
-  "custom_tituloPublico3": "Title3",
-  "custom_parentePublico1": "Parent1",
-  "custom_parentePublico2": "Parent2",
-  "custom_parentePublico3": "Parent3",
-  "custom_localPublico1": "location1",
-  "custom_localPublico2": "location2",
-  "custom_localPublico3": "location3"
+  "customIntegridadeComments": "Job application denied",
+  "customIntegridadeData": "2024-07-17T12:01:30.254Z"
 }
 
 
