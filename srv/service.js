@@ -11,7 +11,7 @@ module.exports = async (srv) => {
     srv.on('READ', 'IntegrityOptions', async (req) => await JobApplicationExt.run(req.query))
 
     srv.on('UPDATE', 'JobApplication', async (req) => {
-        const { applicationId, customIntegridadeComments, customIntegridadeData } = req.data;
+        const { applicationId, customIntegridadeComments, customIntegridadeData, customIntegridadeAvaliador } = req.data;
 
         if (!customIntegridadeComments) {
             return req.error(400, 'Field "customIntegridadeComments" is required.');
@@ -19,6 +19,10 @@ module.exports = async (srv) => {
 
         if (!customIntegridadeData) {
             return req.error(400, 'Field "customIntegridadeData" is required.');
+        }
+
+        if (!customIntegridadeAvaliador) {
+            return req.error(400, 'Field "customIntegridadeAvaliador" is required.');
         }
 
         const dateToTimesTamp = new Date(customIntegridadeData).getTime();

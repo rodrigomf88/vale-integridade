@@ -9,6 +9,7 @@ service MyService @(path: '/proxy'){
     firstName,
     lastName,
     jobTitle,
+    customIntegridade,
     customIntegridadeComments,
     customIntegridadeData,
     customIntegridadeAvaliador,

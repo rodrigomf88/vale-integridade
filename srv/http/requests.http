@@ -16,7 +16,8 @@ Content-Type: application/json
 
 {
   "customIntegridadeComments": "Job application denied",
-  "customIntegridadeData": "2024-07-17T12:01:30.254Z"
+  "customIntegridadeData": "2024-07-17T12:01:30.254Z",
+  "customIntegridadeAvaliador": "John Smith"
 }
 
 
