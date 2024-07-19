@@ -10,8 +10,8 @@ module.exports = async (srv) => {
     srv.on('READ', 'JobRequisition', async (req) => await JobApplicationExt.run(req.query))
     srv.on('READ', 'IntegrityOptions', async (req) => await JobApplicationExt.run(req.query))
 
-    srv.on('UPDATE', 'JobApplication', async (req) => {
-        const { applicationId, customIntegridadeComments, customIntegridadeData, customIntegridadeAvaliador } = req.data;
+    srv.on('UpdateJobApplication', async (req) => {
+        const { applicationId, customIntegridadeComments, customIntegridadeData, customIntegridadeAvaliador, customIntegridade } = req.data;
 
         if (!customIntegridadeComments) {
             return req.error(400, 'Field "customIntegridadeComments" is required.');
@@ -25,6 +25,10 @@ module.exports = async (srv) => {
             return req.error(400, 'Field "customIntegridadeAvaliador" is required.');
         }
 
+        if (!customIntegridade) {
+            return req.error(400, 'Field "customIntegridade" is required.');
+        }
+
         const dateToTimesTamp = new Date(customIntegridadeData).getTime();
 
         const upsertData = {
@@ -34,7 +38,14 @@ module.exports = async (srv) => {
             },
             applicationId,
             customIntegridadeComments,
-            customIntegridadeData: `/Date(${dateToTimesTamp}+0000)/`
+            customIntegridadeData: `/Date(${dateToTimesTamp}+0000)/`,
+            "customIntegridade": {
+                "__metadata": {
+                    "uri": "PicklistOption",
+                    "type": "SFOData.PicklistOption"
+                },
+                "id": customIntegridade
+            }
         };
 
         try {

@@ -58,4 +58,14 @@ service MyService @(path: '/proxy'){
  entity Drafts as projection on my.Drafts;
 
  entity IntegrityOptions as projection on JobApplicationExt.PickListValueV2;
+
+ action UpdateJobApplication(
+   applicationId: String,
+   customIntegridadeComments: String,
+   customIntegridadeData: String,
+   customIntegridadeAvaliador: String,
+   customIntegridade: String,
+  ) 
+  
+  returns String;
 }
