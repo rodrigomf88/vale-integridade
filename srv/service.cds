@@ -13,6 +13,7 @@ service MyService @(path: '/proxy'){
     customIntegridadeComments,
     customIntegridadeData,
     customIntegridadeAvaliador,
+    custom_envioIntegridade,
 
     custom_tituloExGoverno,
     custom_empresaExGoverno,

@@ -38,6 +38,7 @@ module.exports = async (srv) => {
             },
             applicationId,
             customIntegridadeComments,
+            customIntegridadeAvaliador,
             customIntegridadeData: `/Date(${dateToTimesTamp}+0000)/`,
             "customIntegridade": {
                 "__metadata": {
