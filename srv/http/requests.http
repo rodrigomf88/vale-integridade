@@ -6,6 +6,9 @@
 GET {{server}}/proxy/JobApplication?$expand=jobRequisition($expand=recruiter),jobAppStatus,statusId&$filter=jobAppStatus/appStatusSetId eq 756 or jobAppStatus/appStatusSetId eq 726 or jobAppStatus/appStatusSetId eq 729 or jobAppStatus/appStatusSetId eq 799 or jobAppStatus/appStatusSetId eq 802
 Content-Type: application/json
 
+### List
+GET {{server}}/proxy/JobApplication?$expand=jobAppStatus,jobRequisition($expand=recruiter),statusId&$filter=jobAppStatus/appStatusSetId%20eq%20756%20or%20jobAppStatus/appStatusSetId%20eq%20726%20or%20jobAppStatus/appStatusSetId%20eq%20729%20or%20jobAppStatus/appStatusSetId%20eq%20799%20or%20jobAppStatus/appStatusSetId%20eq%20802
+
 ### Show a unique Job Application
 GET {{server}}/proxy/JobApplication(560)?$select=customIntegridadeComments,customIntegridadeData
 Content-Type: application/json

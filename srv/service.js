@@ -1,14 +1,79 @@
-const cds = require('@sap/cds')
-const { executeHttpRequest } = require('@sap-cloud-sdk/http-client')
+const cds = require('@sap/cds');
+const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
+
+// Função para buscar os valores da entidade cust_integridadeRCM
+async function fetchCustIntegridadeRCM() {
+    try {
+        const response = await executeHttpRequest({
+            destinationName: 'SFSF_EXTENSIBILITY_DEV'
+        }, {
+            method: 'GET',
+            url: '/odata/v2/cust_integridadeRCM'
+        });
+
+        const cargos = response.data.d.results.map(item => item.cust_cargo.toLowerCase().replace(/[\W_]+/g, ''));
+        return cargos;
+    } catch (error) {
+        console.error('Error fetching cust_integridadeRCM:', error);
+        throw new Error('Could not fetch cust_integridadeRCM data');
+    }
+}
+
+// Função para validar e filtrar as entidades JobApplication
+async function validateJobApplications(jobs, validCargos) {
+    if (!Array.isArray(jobs)) {
+        return jobs; // Retorne jobs sem validação se não for um array
+    }
+
+    const removedJobs = [];
+
+    const filteredJobs = jobs.filter(job => {
+        const fields = [job.custom_tituloPublico1, job.custom_tituloPublico2, job.custom_tituloPublico3]
+            .filter(field => field) // Filtra os campos que estão preenchidos
+            .map(field => field.toLowerCase().replace(/[\W_]+/g, '')); // Remove caracteres especiais e coloca em minúsculas
+
+        // Verifica se todos os campos preenchidos estão na lista de cargos válidos
+        const allFieldsValid = fields.every(field => validCargos.includes(field));
+
+        if (!allFieldsValid) {
+            removedJobs.push({
+                applicationId: job.applicationId,
+                cargos: fields
+            });
+        }
+
+        // Mantém os registros que são válidos
+        return allFieldsValid;
+    });
+
+    // Log dos registros removidos
+    if (removedJobs.length > 0) {
+        console.log('Registros removidos:', removedJobs);
+    }
+
+    return filteredJobs;
+}
 
 module.exports = async (srv) => {
-    const JobApplicationExt = await cds.connect.to('JobApplicationExt')
-    srv.on('READ', 'JobApplication', async (req) => await JobApplicationExt.run(req.query))
-    srv.on('READ', 'JobApplicationStatus', async (req) => await JobApplicationExt.run(req.query))
-    srv.on('READ', 'JobRequisition', async (req) => await JobApplicationExt.run(req.query))
-    srv.on('READ', 'PicklistOption', async (req) => await JobApplicationExt.run(req.query))
-    srv.on('READ', 'JobRequisition', async (req) => await JobApplicationExt.run(req.query))
-    srv.on('READ', 'IntegrityOptions', async (req) => await JobApplicationExt.run(req.query))
+    const JobApplicationExt = await cds.connect.to('JobApplicationExt');
+
+    srv.on('READ', 'JobApplication', async (req) => {
+        // Obtenha os cargos válidos da entidade cust_integridadeRCM
+        const validCargos = await fetchCustIntegridadeRCM();
+
+        // Obtenha os dados da entidade JobApplication
+        const jobs = await JobApplicationExt.run(req.query);
+
+        // Aplique a validação e filtragem
+        const filteredJobs = await validateJobApplications(jobs, validCargos);
+
+        return filteredJobs; // Retorne os dados filtrados
+    });
+
+    srv.on('READ', 'JobApplicationStatus', async (req) => await JobApplicationExt.run(req.query));
+    srv.on('READ', 'JobRequisition', async (req) => await JobApplicationExt.run(req.query));
+    srv.on('READ', 'PicklistOption', async (req) => await JobApplicationExt.run(req.query));
+    srv.on('READ', 'IntegrityOptions', async (req) => await JobApplicationExt.run(req.query));
 
     srv.on('UpdateJobApplication', async (req) => {
         const { applicationId, customIntegridadeComments, customIntegridadeData, customIntegridadeAvaliador, customIntegridade } = req.data;
@@ -74,5 +139,5 @@ module.exports = async (srv) => {
                 target: req.target
             });
         }
-    })
-}
+    });
+};
