@@ -21,10 +21,6 @@ async function fetchCustIntegridadeRCM() {
 
 // Função para validar e filtrar as entidades JobApplication
 async function validateJobApplications(jobs, validCargos) {
-    if (!Array.isArray(jobs)) {
-        return jobs; // Retorne jobs sem validação se não for um array
-    }
-
     const removedJobs = [];
 
     const filteredJobs = jobs.filter(job => {
@@ -35,15 +31,15 @@ async function validateJobApplications(jobs, validCargos) {
         // Verifica se todos os campos preenchidos estão na lista de cargos válidos
         const allFieldsValid = fields.every(field => validCargos.includes(field));
 
-        if (!allFieldsValid) {
+        if (allFieldsValid) {
             removedJobs.push({
                 applicationId: job.applicationId,
                 cargos: fields
             });
         }
 
-        // Mantém os registros que são válidos
-        return allFieldsValid;
+        // Mantém os registros que não são válidos
+        return !allFieldsValid;
     });
 
     // Log dos registros removidos
