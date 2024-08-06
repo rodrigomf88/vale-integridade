@@ -28,6 +28,11 @@ async function validateJobApplications(jobs, validCargos) {
             .filter(field => field) // Filtra os campos que estão preenchidos
             .map(field => field.toLowerCase().replace(/[\W_]+/g, '')); // Remove caracteres especiais e coloca em minúsculas
 
+        if (fields.length === 0) {
+            // Se não há cargos preenchidos, mantemos o registro
+            return true;
+        }
+
         // Verifica se todos os campos preenchidos estão na lista de cargos válidos
         const allFieldsValid = fields.every(field => validCargos.includes(field));
 
@@ -36,10 +41,13 @@ async function validateJobApplications(jobs, validCargos) {
                 applicationId: job.applicationId,
                 cargos: fields
             });
+
+            // Remove o registro se todos os campos preenchidos forem válidos
+            return false;
         }
 
         // Mantém os registros que não são válidos
-        return !allFieldsValid;
+        return true;
     });
 
     // Log dos registros removidos
