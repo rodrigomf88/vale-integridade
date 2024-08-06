@@ -28,12 +28,12 @@ async function validateJobApplications(jobs, validCargos) {
             .filter(field => field) // Filtra os campos que estão preenchidos
             .map(field => field.toLowerCase().replace(/[\W_]+/g, '')); // Remove caracteres especiais e coloca em minúsculas
 
+        // Se não há cargos preenchidos, mantemos o registro
         if (fields.length === 0) {
-            // Se não há cargos preenchidos, mantemos o registro
             return true;
         }
 
-        // Verifica se todos os campos preenchidos estão na lista de cargos válidos
+        // Verifica se todos os cargos preenchidos estão na lista de cargos válidos
         const allFieldsValid = fields.every(field => validCargos.includes(field));
 
         if (allFieldsValid) {
@@ -46,7 +46,7 @@ async function validateJobApplications(jobs, validCargos) {
             return false;
         }
 
-        // Mantém os registros que não são válidos
+        // Mantém os registros onde pelo menos um campo preenchido não é válido
         return true;
     });
 
@@ -68,7 +68,38 @@ module.exports = async (srv) => {
         // Obtenha os dados da entidade JobApplication
         const jobs = await JobApplicationExt.run(req.query);
 
-        // Aplique a validação e filtragem
+        // Verifique se jobs é um array
+        if (!Array.isArray(jobs)) {
+            // Se jobs não for um array, presumimos que é um único registro
+            const singleJob = jobs;
+
+            const fields = [singleJob.custom_tituloPublico1, singleJob.custom_tituloPublico2, singleJob.custom_tituloPublico3]
+                .filter(field => field) // Filtra os campos que estão preenchidos
+                .map(field => field.toLowerCase().replace(/[\W_]+/g, '')); // Remove caracteres especiais e coloca em minúsculas
+
+            // Se não há cargos preenchidos, mantemos o registro
+            if (fields.length === 0) {
+                return singleJob;
+            }
+
+            // Verifica se todos os cargos preenchidos estão na lista de cargos válidos
+            const allFieldsValid = fields.every(field => validCargos.includes(field));
+
+            if (allFieldsValid) {
+                console.log('Registro removido:', {
+                    applicationId: singleJob.applicationId,
+                    cargos: fields
+                });
+
+                // Remove o registro se todos os campos preenchidos forem válidos
+                return null;
+            }
+
+            // Mantém o registro onde pelo menos um campo preenchido não é válido
+            return singleJob;
+        }
+
+        // Aplique a validação e filtragem para múltiplos registros
         const filteredJobs = await validateJobApplications(jobs, validCargos);
 
         return filteredJobs; // Retorne os dados filtrados
